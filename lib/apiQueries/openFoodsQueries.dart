@@ -1,5 +1,9 @@
 import 'package:openfoodfacts/openfoodfacts.dart';
 
+void testallegen(Allergens allergies) {
+  for (var element in allergies.names) {}
+}
+
 Future<Product?> getProduct(String? barcode) async {
   // var barcode = '0048151623426';
   OpenFoodAPIConfiguration.userAgent = UserAgent(

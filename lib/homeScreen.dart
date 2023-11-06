@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _imageFrontUrl = _produit.imageFrontUrl ?? '';
           _ingredients = _produit!.ingredients ?? [];
           _ingredientsText = _produit!.ingredientsText ?? '';
+          _produit.allergens;
         });
       }
       ;

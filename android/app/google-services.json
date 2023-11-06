@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "776767026156",
+    "project_id": "allergie-test",
+    "storage_bucket": "allergie-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776767026156:android:1b6a976a2430912cbbc6c9",
+        "android_client_info": {
+          "package_name": "com.example.barcode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgqbVAUj9dcYEejYA1siYW5NbRl4MMks0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
