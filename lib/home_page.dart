@@ -2,16 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:barcode/app_state.dart';
-import 'package:barcode/authentication/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:barcode/personnes/personne_list.dart';
+import 'package:barcode/scancodebar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:barcode/authentication/widgets.dart';
-import 'package:provider/provider.dart';
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,32 +22,41 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('BarCode test'),
       ),
-      body: ListView(
-        children: <Widget>[
-          Image.asset('assets/codelab.png'),
-          const SizedBox(height: 8),
-          const IconAndDetail(Icons.calendar_today, 'October 30'),
-          const IconAndDetail(Icons.location_city, 'San Francisco'),
-          Consumer<ApplicationState>(
-            builder: (context, appState, _) => AuthFunc(
-                loggedIn: appState.loggedIn,
-                signOut: () {
-                  FirebaseAuth.instance.signOut();
-                }),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: Colors.amber[800],
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.barcode_reader),
+            icon: Icon(Icons.barcode_reader),
+            label: 'Scan',
           ),
-          const Divider(
-            height: 8,
-            thickness: 1,
-            indent: 8,
-            endIndent: 8,
-            color: Colors.grey,
+          NavigationDestination(
+            selectedIcon: Icon(Icons.people),
+            icon: Icon(Icons.people_outline),
+            label: 'Personnes',
           ),
-          const Header("What we'll be doing"),
-          const Paragraph(
-            'Join us for a day full of Firebase Workshops and Pizza!',
+          NavigationDestination(
+            selectedIcon: Icon(Icons.track_changes),
+            icon: Icon(Icons.track_changes_outlined),
+            label: 'Historiques',
           ),
         ],
       ),
+      body: <Widget>[
+        ScanCodeBar(),
+        PersonneList(),
+        Container(
+          color: Colors.blue,
+          alignment: Alignment.center,
+          child: const Text('Page 3'),
+        ),
+      ][currentPageIndex],
     );
   }
 }

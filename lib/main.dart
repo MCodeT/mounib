@@ -1,10 +1,8 @@
-import 'package:barcode/homeScreen.dart';
 import 'package:barcode/home_page.dart';
+import 'package:barcode/home_login.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
-import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:barcode/app_state.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +21,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const HomeLogin(),
       routes: [
         GoRoute(
           path: 'sign-in',
@@ -51,13 +49,13 @@ final _router = GoRouter(
                   if (state is UserCreated) {
                     user.updateDisplayName(user.email!.split('@')[0]);
                   }
-                  if (!user.emailVerified) {
-                    user.sendEmailVerification();
-                    const snackBar = SnackBar(
-                        content: Text(
-                            'Please check your email to verify your email address'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
+                  // if (!user.emailVerified) {
+                  //   user.sendEmailVerification();
+                  //   const snackBar = SnackBar(
+                  //       content: Text(
+                  //           'Please check your email to verify your email address'));
+                  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  // }
                   context.pushReplacement('/');
                 })),
               ],
@@ -77,8 +75,8 @@ final _router = GoRouter(
           ],
         ),
         GoRoute(
-          path: 'codebar',
-          builder: (context, state) => const HomeScreen(),
+          path: 'homepage',
+          builder: (context, state) => const HomePage(),
           // path: 'profile',
           // builder: (context, state) {
           // return

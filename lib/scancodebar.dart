@@ -4,14 +4,14 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:barcode/apiQueries/openFoodsQueries.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ScanCodeBar extends StatefulWidget {
+  const ScanCodeBar({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ScanCodeBar> createState() => _ScanCodeBarState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ScanCodeBarState extends State<ScanCodeBar> {
   String _scanBarcode = '';
   String _productName = '';
   String _imageFrontUrl = '';
@@ -27,24 +27,23 @@ class _HomeScreenState extends State<HomeScreen> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
-    Product? _produit;
+    Product? produit;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       print(barcodeScanRes);
-      _produit = await getProduct(barcodeScanRes);
+      produit = await getProduct(barcodeScanRes);
       if (mounted) {
         setState(() {
           _scanBarcode = (barcodeScanRes != null) ? barcodeScanRes : '';
-          _productName = _produit!.productName ?? '';
-          _imageFrontUrl = _produit.imageFrontUrl ?? '';
-          _ingredients = _produit!.ingredients ?? [];
-          _ingredientsText = _produit!.ingredientsText ?? '';
-          _produit.allergens;
+          _productName = produit!.productName ?? '';
+          _imageFrontUrl = produit.imageFrontUrl ?? '';
+          _ingredients = produit.ingredients ?? [];
+          _ingredientsText = produit.ingredientsText ?? '';
+          produit.allergens;
         });
       }
-      ;
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }

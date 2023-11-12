@@ -19,6 +19,9 @@ class AuthFunc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (loggedIn) {
+      context.push('/homepage');
+    }
     return Row(
       children: [
         Padding(
@@ -35,9 +38,9 @@ class AuthFunc extends StatelessWidget {
             padding: const EdgeInsets.only(left: 24, bottom: 8),
             child: StyledButton(
                 onPressed: () {
-                  context.push('/codebar');
+                  context.push('/homepage');
                 },
-                child: const Text('CodeBar')),
+                child: const Text('Home')),
           ),
         )
       ],
